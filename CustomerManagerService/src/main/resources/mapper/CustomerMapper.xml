@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzx.xiaoxiong581.customermanager.microservice.dao.CustomerDao">
+    <sql id="all_column">
+        customerId, customerName, status, createTime, updateTime
+    </sql>
+
+    <sql id="queryCondition">
+        <if test="customerPo.customerName != null"> and customerName = #{customerPo.customerName} </if>
+        <if test="customerPo.status != -1"> and status = #{customerPo.status} </if>
+        <if test="startTime != null"> and createTime &gt;= #{startTime} </if>
+        <if test="endTime != null"> and createTime &lt;= #{endTime} </if>
+    </sql>
+
+    <insert id="insert">
+        insert into t_customer (<include refid="all_column"/>) values (#{customerId}, #{customerName},
+        #{status}, #{createTime},
+        #{updateTime})
+    </insert>
+
+    <update id="update">
+        update t_customer set
+        <if test="customerName != null"> customerName = #{customerName}, </if>
+        <if test="status != -1"> status = #{status}, </if>
+        updateTime = #{updateTime} where customerId =
+        #{customerId}
+    </update>
+
+    <delete id="delete">
+        delete from t_customer where customerId = #{customerId}
+    </delete>
+
+    <select id="queryByCustomerId"
+            resultType="com.yzx.xiaoxiong581.customermanager.microservice.dao.po.CustomerPo">
+        select
+        <include refid="all_column"/>
+        from t_customer where customerId = #{customerId}
+    </select>
+
+    <select id="queryByCustomerName"
+            resultType="com.yzx.xiaoxiong581.customermanager.microservice.dao.po.CustomerPo">
+        select
+        <include refid="all_column"/>
+        from t_customer where customerName = #{customerName}
+    </select>
+
+    <select id="query"
+            resultType="com.yzx.xiaoxiong581.customermanager.microservice.dao.po.CustomerPo">
+        select
+        <include refid="all_column"/>
+        from t_customer where 1=1
+        <include refid="queryCondition"/>
+        order by createTime desc limit #{offset}, #{rows}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select
+        count(customerId)
+        from t_customer where 1=1
+        <include refid="queryCondition"/>
+    </select>
+</mapper>

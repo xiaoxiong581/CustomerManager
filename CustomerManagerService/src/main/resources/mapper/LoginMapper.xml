@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzx.xiaoxiong581.customermanager.microservice.dao.LoginDao">
+    <sql id="all_column">
+        customerId, password, createTime, updateTime
+    </sql>
+
+    <insert id="insert">
+        insert into t_login (<include refid="all_column"/>) values (#{customerId}, #{password}, #{createTime},
+        #{updateTime})
+    </insert>
+
+    <update id="updatePasswordByCustomerId">
+        update t_login set password = #{password}, updateTime = #{updateTime} where customerId = #{customerId}
+    </update>
+
+    <delete id="delete">
+        delete from t_login where customerId = #{customerId}
+    </delete>
+
+    <select id="queryByCustomerId"
+            resultType="com.yzx.xiaoxiong581.customermanager.microservice.dao.po.LoginPo">
+        select
+        <include refid="all_column"/>
+        from t_login where customerId = #{customerId}
+    </select>
+
+</mapper>
