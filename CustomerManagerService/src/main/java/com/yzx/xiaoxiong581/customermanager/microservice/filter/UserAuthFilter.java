@@ -38,7 +38,10 @@ public class UserAuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        filterChain.doFilter(servletRequest, servletResponse);
+        return;
+
+       /* HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         if (null != exculdeUrls && exculdeUrls.contains(httpServletRequest.getRequestURI())) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
@@ -64,7 +67,7 @@ public class UserAuthFilter implements Filter {
 
         filterChain.doFilter(servletRequest, servletResponse);
 
-        RequestAuthContext.setRequestAuthContext(null);
+        RequestAuthContext.setRequestAuthContext(null);*/
     }
 
     private void constructForbiddenRsp(HttpServletResponse httpServletResponse) throws IOException {

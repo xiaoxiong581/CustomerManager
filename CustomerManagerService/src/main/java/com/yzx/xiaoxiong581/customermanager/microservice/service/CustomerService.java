@@ -26,13 +26,12 @@ public class CustomerService {
         return null != loginPo && password.equals(loginPo.getPassword());
     }
 
-    public String getCustomerIdByName(String customerName) {
-        CustomerPo customerPo = customerDao.queryByCustomerName(customerName);
-        return customerPo != null ? customerPo.getCustomerId() : null;
+    public boolean isCustomerNameExist(String customerName) {
+        return null != customerDao.queryByCustomerName(customerName);
     }
 
-    public boolean isCustomerNameExist(String customerName) {
-        return null != getCustomerIdByName(customerName);
+    public boolean isEmailExist(String email) {
+        return null != customerDao.queryByEmail(email);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -41,11 +40,12 @@ public class CustomerService {
         customerPo.setCustomerId(customerId);
         customerPo.setStatus(CustomerStatus.NORMAL);
         customerPo.setCustomerName(request.getCustomerName());
+        customerPo.setEmail(request.getEmail());
         customerDao.insert(customerPo);
 
         LoginPo loginPo = new LoginPo();
         loginPo.setCustomerId(customerId);
-        loginPo.setPassword(customerId.substring(0, 10));
+        loginPo.setPassword(request.getPassword());
         loginDao.insert(loginPo);
     }
 

@@ -22,6 +22,8 @@ public interface CustomerDao {
 
     public CustomerPo queryByCustomerName(@Param("customerName") String customerName);
 
+    public CustomerPo queryByEmail(@Param("email") String email);
+
     public List<CustomerPo> query(CustomerPo customerPo, @Param("startTime") Date startTime,
                                   @Param("endTime") Date endTime,
                                   @Param("offset") int offset,

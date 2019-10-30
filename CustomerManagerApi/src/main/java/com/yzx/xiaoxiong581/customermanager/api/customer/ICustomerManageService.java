@@ -27,7 +27,7 @@ public interface ICustomerManageService {
      * @param request 请求对象（用户名）
      * @return 用户列表
      */
-    @GetMapping(path = "query", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "query", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse query(@RequestBody QueryCustomerRequest request);
 
     /**

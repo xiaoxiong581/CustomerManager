@@ -3,18 +3,19 @@
 
 <mapper namespace="com.yzx.xiaoxiong581.customermanager.microservice.dao.CustomerDao">
     <sql id="all_column">
-        customerId, customerName, status, createTime, updateTime
+        customerId, customerName, email, status, createTime, updateTime
     </sql>
 
     <sql id="queryCondition">
         <if test="customerPo.customerName != null"> and customerName = #{customerPo.customerName} </if>
+        <if test="customerPo.email != null"> and email = #{customerPo.email} </if>
         <if test="customerPo.status != -1"> and status = #{customerPo.status} </if>
         <if test="startTime != null"> and createTime &gt;= #{startTime} </if>
         <if test="endTime != null"> and createTime &lt;= #{endTime} </if>
     </sql>
 
     <insert id="insert">
-        insert into t_customer (<include refid="all_column"/>) values (#{customerId}, #{customerName},
+        insert into t_customer (<include refid="all_column"/>) values (#{customerId}, #{customerName}, #{email},
         #{status}, #{createTime},
         #{updateTime})
     </insert>
@@ -22,6 +23,7 @@
     <update id="update">
         update t_customer set
         <if test="customerName != null"> customerName = #{customerName}, </if>
+        <if test="email != null"> email = #{customerName}, </if>
         <if test="status != -1"> status = #{status}, </if>
         updateTime = #{updateTime} where customerId =
         #{customerId}
@@ -43,6 +45,13 @@
         select
         <include refid="all_column"/>
         from t_customer where customerName = #{customerName}
+    </select>
+
+    <select id="queryByEmail"
+            resultType="com.yzx.xiaoxiong581.customermanager.microservice.dao.po.CustomerPo">
+        select
+        <include refid="all_column"/>
+        from t_customer where email = #{email}
     </select>
 
     <select id="query"

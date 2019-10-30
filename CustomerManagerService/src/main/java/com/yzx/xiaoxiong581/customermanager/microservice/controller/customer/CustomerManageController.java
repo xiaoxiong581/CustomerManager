@@ -42,6 +42,10 @@ public class CustomerManageController implements ICustomerManageService {
             return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.CUSTOMER_NAME_ALREADY_EXIST);
         }
 
+        if (customerService.isEmailExist(request.getEmail())) {
+            return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.EMAIL_ALREADY_EXIST);
+        }
+
         String customerId = UUID.randomUUID().toString().replace("-", "");
         customerService.addCustomer(customerId, request);
 

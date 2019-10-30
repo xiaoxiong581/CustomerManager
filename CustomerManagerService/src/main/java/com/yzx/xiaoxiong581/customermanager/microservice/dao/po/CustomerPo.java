@@ -13,6 +13,8 @@ public class CustomerPo {
 
     private String customerName;
 
+    private String email;
+
     private int status = -1;
 
     private Date createTime = new Date();

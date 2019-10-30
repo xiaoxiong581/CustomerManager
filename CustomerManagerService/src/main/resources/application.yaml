@@ -1,5 +1,5 @@
 server:
-  port: 19080
+  port: 29080
   servlet:
     context-path: /customermanager
 version: v1

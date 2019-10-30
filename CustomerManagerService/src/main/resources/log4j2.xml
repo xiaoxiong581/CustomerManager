@@ -2,48 +2,75 @@
 <configuration status="WARN" monitorInterval="30">
     <appenders>
         <console name="Console" target="SYSTEM_OUT" follow="true">
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}][%p] - %l - %m%n"/>
         </console>
 
-        <RollingFile name="RollingFileInfo" fileName="/var/log/xiaoxiong581/CustomerManager/info.log"
-                     filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
-            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+        <RollingFile name="RollingFileRoot" fileName="/var/log/xiaoxiong581/CustomerManager/root.log"
+                     filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/root-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <RollingFile name="RollingFileInfo" fileName="/var/log/xiaoxiong581/CustomerManager/info.log"
+                     filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </RollingFile>
 
         <RollingFile name="RollingFileWarn" fileName="/var/log/xiaoxiong581/CustomerManager/warn.log"
                      filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
-            <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </RollingFile>
 
         <RollingFile name="RollingFileError" fileName="/var/log/xiaoxiong581/CustomerManager/error.log"
                      filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
-            <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>
             </Policies>
+            <Filters>
+                <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
         </RollingFile>
     </appenders>
 
     <loggers>
-        <root level="all">
+        <logger name="java.sql" level="debug" additivity="false">
             <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFileError"/>
-            <appender-ref ref="RollingFileWarn"/>
+        </logger>
+        <root level="debug">
+            <appender-ref ref="RollingFileRoot"/>
+            <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
         </root>
     </loggers>
 </configuration>

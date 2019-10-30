@@ -27,7 +27,9 @@ public enum ResultErrorEnum {
 
     CUSTOMER_NAME_ALREADY_EXIST("10002", "customerName already exist"),
 
-    CUSTOMER_STATUS_NOT_NORMAL("10003", "customer status isn't normal");
+    EMAIL_ALREADY_EXIST("10003", "email already exist"),
+
+    CUSTOMER_STATUS_NOT_NORMAL("10004", "customer status isn't normal");
 
     @Getter
     private String code;

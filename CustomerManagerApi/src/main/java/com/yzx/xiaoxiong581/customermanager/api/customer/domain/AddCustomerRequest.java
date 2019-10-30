@@ -12,4 +12,10 @@ import lombok.Data;
 public class AddCustomerRequest {
     @JsonProperty("customerName")
     private String customerName;
+
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("password")
+    private String password;
 }
