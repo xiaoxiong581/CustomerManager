@@ -15,6 +15,7 @@ import java.util.UUID;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class LoginDaoTest {
     @Autowired
     private LoginDao loginDao;

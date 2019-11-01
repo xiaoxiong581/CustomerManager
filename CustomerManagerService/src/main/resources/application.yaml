@@ -25,4 +25,4 @@ mybatis:
 
 customermanager:
   auth:
-    excludeurls: ${server.servlet.context-path}/${version}/healthcheck,${server.servlet.context-path}/${version}/customer/auth/login
+    excludeurls: '${server.servlet.context-path}/${version}/healthcheck, ${server.servlet.context-path}/${version}/customer/auth/login, ${server.servlet.context-path}/${version}/customer/manage/register'

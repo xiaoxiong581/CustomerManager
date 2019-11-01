@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzx.xiaoxiong581.customermanager.microservice.dao.LoginAuthDao">
+    <sql id="all_column">
+        customerId, token, updateTime
+    </sql>
+
+    <insert id="insert">
+        insert into t_login_auth (<include refid="all_column"/>) values (#{customerId}, #{token}, #{updateTime})
+    </insert>
+
+    <update id="updateTimeByAuth">
+        update t_login_auth set updateTime = #{updateTime} where customerId = #{customerId} and token = #{token}
+    </update>
+
+    <delete id="deleteExpireLoginAuth">
+        delete from t_login where updateTime &lt;= #{expireTime}
+    </delete>
+
+    <delete id="deleteLoginAuth">
+        delete from t_login where customerId = #{customerId} and token = #{token}
+    </delete>
+
+</mapper>

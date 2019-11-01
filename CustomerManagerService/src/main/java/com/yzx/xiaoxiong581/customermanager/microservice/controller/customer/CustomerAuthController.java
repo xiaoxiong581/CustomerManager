@@ -1,6 +1,11 @@
 package com.yzx.xiaoxiong581.customermanager.microservice.controller.customer;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yzx.xiaoxiong581.customermanager.api.common.BaseResponse;
+import com.yzx.xiaoxiong581.customermanager.api.customer.domain.LogoutRequest;
+import com.yzx.xiaoxiong581.customermanager.microservice.constant.ResponseParams;
+import com.yzx.xiaoxiong581.customermanager.microservice.dao.LoginAuthDao;
+import com.yzx.xiaoxiong581.customermanager.microservice.dao.po.LoginAuthPo;
 import com.yzx.xiaoxiong581.customermanager.microservice.exception.error.ResultErrorEnum;
 import com.yzx.xiaoxiong581.customermanager.api.customer.ICustomerAuthService;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.LoginRequest;
@@ -27,6 +32,9 @@ public class CustomerAuthController implements ICustomerAuthService {
     private CustomerDao customerDao;
 
     @Autowired
+    private LoginAuthDao loginAuthDao;
+
+    @Autowired
     private CustomerService customerService;
 
     @Override
@@ -41,7 +49,19 @@ public class CustomerAuthController implements ICustomerAuthService {
             return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.USERNAME_OR_PASSWORD_ERROR);
         }
 
+        String token = customerService.addLoginAuth(customerPo.getCustomerId());
+        JSONObject rspData = new JSONObject();
+        rspData.put(ResponseParams.CUSTOMER_ID, customerPo.getCustomerId());
+        rspData.put(ResponseParams.TOKEN, token);
+
         log.info("user {} login success.", request.getUserName());
-        return new BaseResponse(customerPo);
+        return new BaseResponse(rspData);
+    }
+
+    @Override
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse logout(LogoutRequest request) {
+        loginAuthDao.deleteLoginAuth(request.getCustomerId(), request.getToken());
+        return new BaseResponse();
     }
 }

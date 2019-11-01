@@ -1,6 +1,7 @@
 package com.yzx.xiaoxiong581.customermanager.microservice.utils;
 
 import com.yzx.xiaoxiong581.customermanager.api.common.BaseResponse;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,6 +9,7 @@ import static org.junit.Assert.*;
 /**
  * @author xiaoxiong581
  */
+@Ignore
 public class ObjectUtilsTest {
 
     @Test

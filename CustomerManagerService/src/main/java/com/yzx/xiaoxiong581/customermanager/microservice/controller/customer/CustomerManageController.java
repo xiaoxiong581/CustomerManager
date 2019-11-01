@@ -6,6 +6,7 @@ import com.yzx.xiaoxiong581.customermanager.api.customer.ICustomerManageService;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.AddCustomerRequest;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.QueryCustomerRequest;
 import com.yzx.xiaoxiong581.customermanager.microservice.constant.CustomerStatus;
+import com.yzx.xiaoxiong581.customermanager.microservice.constant.ResponseParams;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.CustomerDao;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.po.CustomerPo;
 import com.yzx.xiaoxiong581.customermanager.microservice.exception.error.ResultErrorEnum;
@@ -63,8 +64,8 @@ public class CustomerManageController implements ICustomerManageService {
         int totalCount = customerDao.count(customerPo, request.getStartTime(), request.getEndTime());
 
         JSONObject data = new JSONObject();
-        data.put("customers", customerPos);
-        data.put("totalCount", totalCount);
+        data.put(ResponseParams.CUSTOMER_LIST, customerPos);
+        data.put(ResponseParams.TOTAL_COUNT, totalCount);
 
         return new BaseResponse(data);
     }
