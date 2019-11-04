@@ -3,12 +3,12 @@
     <appenders>
         <console name="Console" target="SYSTEM_OUT" follow="true">
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}][%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS}|%p|%t|%l|%m%n"/>
         </console>
 
         <RollingFile name="RollingFileRoot" fileName="/var/log/xiaoxiong581/CustomerManager/root.log"
                      filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/root-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS}|%p|%t|%l|%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>
@@ -21,7 +21,7 @@
 
         <RollingFile name="RollingFileInfo" fileName="/var/log/xiaoxiong581/CustomerManager/info.log"
                      filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS}|%p|%t|%l|%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>
@@ -35,7 +35,7 @@
 
         <RollingFile name="RollingFileWarn" fileName="/var/log/xiaoxiong581/CustomerManager/warn.log"
                      filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS}|%p|%t|%l|%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>
@@ -49,7 +49,7 @@
 
         <RollingFile name="RollingFileError" fileName="/var/log/xiaoxiong581/CustomerManager/error.log"
                      filePattern="/var/log/xiaoxiong581/CustomerManager/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
-            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS}|%p|%t|%l|%m%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100MB"/>

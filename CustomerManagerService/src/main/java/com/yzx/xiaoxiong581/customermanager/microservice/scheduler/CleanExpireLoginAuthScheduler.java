@@ -24,10 +24,9 @@ public class CleanExpireLoginAuthScheduler {
 
     @Scheduled(initialDelay = 30000, fixedDelay = 60000)
     public void execute() {
-        log.debug("begin to clean expire login auth info");
-
         try {
             Date expireTime = DateUtils.addMinutes(new Date(), -existTime);
+            log.info("begin to clean expire login auth info, expireTime: {}", expireTime);
             loginAuthDao.deleteExpireLoginAuth(expireTime);
         } catch (Exception e) {
             log.error("clean expire login auth occur error", e);

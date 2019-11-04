@@ -15,11 +15,11 @@
     </update>
 
     <delete id="deleteExpireLoginAuth">
-        delete from t_login where updateTime &lt;= #{expireTime}
+        delete from t_login_auth where updateTime &lt;= #{expireTime}
     </delete>
 
     <delete id="deleteLoginAuth">
-        delete from t_login where customerId = #{customerId} and token = #{token}
+        delete from t_login_auth where customerId = #{customerId} and token = #{token}
     </delete>
 
 </mapper>
