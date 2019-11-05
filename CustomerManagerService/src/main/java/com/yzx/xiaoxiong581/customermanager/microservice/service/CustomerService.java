@@ -1,6 +1,7 @@
 package com.yzx.xiaoxiong581.customermanager.microservice.service;
 
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.AddCustomerRequest;
+import com.yzx.xiaoxiong581.customermanager.api.customer.domain.Customer;
 import com.yzx.xiaoxiong581.customermanager.microservice.constant.CustomerStatus;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.CustomerDao;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.LoginAuthDao;
@@ -52,7 +53,7 @@ public class CustomerService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void addCustomer(String customerId, AddCustomerRequest request) {
+    public void addCustomer(String customerId, Customer request) {
         CustomerPo customerPo = new CustomerPo();
         customerPo.setCustomerId(customerId);
         customerPo.setStatus(CustomerStatus.NORMAL);

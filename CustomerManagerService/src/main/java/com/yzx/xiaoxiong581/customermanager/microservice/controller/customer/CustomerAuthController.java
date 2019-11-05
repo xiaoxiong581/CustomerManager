@@ -3,6 +3,7 @@ package com.yzx.xiaoxiong581.customermanager.microservice.controller.customer;
 import com.alibaba.fastjson.JSONObject;
 import com.yzx.xiaoxiong581.customermanager.api.common.BaseResponse;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.LogoutRequest;
+import com.yzx.xiaoxiong581.customermanager.api.customer.domain.RegisterRequest;
 import com.yzx.xiaoxiong581.customermanager.microservice.constant.ResponseParams;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.LoginAuthDao;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.po.LoginAuthPo;
@@ -20,6 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 
 /**
@@ -63,5 +66,23 @@ public class CustomerAuthController implements ICustomerAuthService {
     public BaseResponse logout(LogoutRequest request) {
         loginAuthDao.deleteLoginAuth(request.getCustomerId(), request.getToken());
         return new BaseResponse();
+    }
+
+    @Override
+    @ResponseStatus(HttpStatus.OK)
+    public BaseResponse register(RegisterRequest request) {
+        if (customerService.isCustomerNameExist(request.getCustomerName())) {
+            return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.CUSTOMER_NAME_ALREADY_EXIST);
+        }
+
+        if (customerService.isEmailExist(request.getEmail())) {
+            return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.EMAIL_ALREADY_EXIST);
+        }
+
+        String customerId = UUID.randomUUID().toString().replace("-", "");
+        customerService.addCustomer(customerId, request);
+
+        log.info("register customer success, customerId: {}, customerName: {}", customerId, request.getCustomerName());
+        return new BaseResponse(customerDao.queryByCustomerId(customerId));
     }
 }

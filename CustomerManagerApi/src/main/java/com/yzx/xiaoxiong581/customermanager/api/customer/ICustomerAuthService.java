@@ -3,6 +3,7 @@ package com.yzx.xiaoxiong581.customermanager.api.customer;
 import com.yzx.xiaoxiong581.customermanager.api.common.BaseResponse;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.LoginRequest;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.LogoutRequest;
+import com.yzx.xiaoxiong581.customermanager.api.customer.domain.RegisterRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,4 +31,13 @@ public interface ICustomerAuthService {
      */
     @PostMapping(path = "logout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse logout(@RequestBody LogoutRequest request);
+
+    /**
+     * 用户注册
+     *
+     * @param request 请求对象（用户名、邮箱、密码）
+     * @return 添加结果
+     */
+    @PostMapping(path = "register", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BaseResponse register(@RequestBody RegisterRequest request);
 }

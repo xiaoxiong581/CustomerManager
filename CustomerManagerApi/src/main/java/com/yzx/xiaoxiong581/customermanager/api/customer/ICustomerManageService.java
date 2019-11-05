@@ -15,7 +15,7 @@ public interface ICustomerManageService {
     /**
      * 新增用户
      *
-     * @param request 请求对象（用户名）
+     * @param request 请求对象（用户名、邮箱、密码）
      * @return 添加结果
      */
     @PostMapping(path = "add", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

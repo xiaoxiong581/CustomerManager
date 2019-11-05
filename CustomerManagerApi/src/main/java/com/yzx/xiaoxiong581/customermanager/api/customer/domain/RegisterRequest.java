@@ -11,5 +11,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AddCustomerRequest extends Customer {
+public class RegisterRequest extends Customer {
 }

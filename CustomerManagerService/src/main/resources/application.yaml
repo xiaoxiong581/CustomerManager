@@ -1,5 +1,5 @@
 server:
-  port: 29080
+  port: 19080
   servlet:
     context-path: /customermanager
 version: v1
@@ -25,4 +25,4 @@ mybatis:
 
 customermanager:
   auth:
-    excludeurls: '${server.servlet.context-path}/${version}/healthcheck, ${server.servlet.context-path}/${version}/customer/auth/login, ${server.servlet.context-path}/${version}/customer/manage/register'
+    excludeurls: '${server.servlet.context-path}/${version}/healthcheck, ${server.servlet.context-path}/${version}/customer/auth/login, ${server.servlet.context-path}/${version}/customer/auth/register'
