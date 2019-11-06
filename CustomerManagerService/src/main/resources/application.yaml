@@ -1,7 +1,11 @@
 server:
-  port: 19080
+  port: 29080
   servlet:
     context-path: /customermanager
+  ssl:
+    key-store: classpath:cert/server.keystore
+    key-alias: customerManager
+    key-store-password: xiaoxiong581
 version: v1
 
 spring:
