@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yzx.xiaoxiong581.customermanager.api.common.BaseResponse;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.LogoutRequest;
 import com.yzx.xiaoxiong581.customermanager.api.customer.domain.RegisterRequest;
+import com.yzx.xiaoxiong581.customermanager.microservice.constant.CustomerStatus;
 import com.yzx.xiaoxiong581.customermanager.microservice.constant.ResponseParams;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.LoginAuthDao;
 import com.yzx.xiaoxiong581.customermanager.microservice.dao.po.LoginAuthPo;
@@ -46,6 +47,9 @@ public class CustomerAuthController implements ICustomerAuthService {
         CustomerPo customerPo = customerDao.queryByCustomerName(request.getUserName());
         if (null == customerPo || StringUtils.isEmpty(customerPo.getCustomerId())) {
             return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.USERNAME_OR_PASSWORD_ERROR);
+        }
+        if (CustomerStatus.NORMAL != customerPo.getStatus()) {
+            return ResponseUtils.newErrorRspByErrorEnum(ResultErrorEnum.CUSTOMER_STATUS_NOT_NORMAL);
         }
 
         if (!customerService.isLoginSuccess(customerPo.getCustomerId(), request.getPassword())) {
