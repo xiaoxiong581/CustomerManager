@@ -7,8 +7,8 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="taskScheduler" class="java.util.concurrent.ScheduledThreadPoolExecutor">
-        <constructor-arg name="corePoolSize" value="10"/>
+    <bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+        <property name="poolSize" value="10" />
     </bean>
 
 </beans>
